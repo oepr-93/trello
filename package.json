@@ -4,38 +4,14 @@
   "author": "Norbert Eder <opensource@norberteder.com>",
   "description": "This module provides an easy way to make requests to the Trello API.",
   "contributors": [
-    {
-      "name": "Graeme Foster",
-      "email": "graemef@gmail.com"
-    },
-    {
-      "name": "Mike Beasley",
-      "email": "mbeasley@emcien.com"
-    },
-    {
-      "name": "Dario Kondratiuk",
-      "email": "dariokondratiuk@gmail.com"
-    },
-    {
-      "name": "Sean Madden",
-      "email": "sdm350@gmail.com"
-    },
-    {
-      "name": "Siôn Le Roux",
-      "email": "sinisterstuf@gmail.com"
-    },
-    {
-      "name": "Mike Garuccio",
-      "url": "https://github.com/mgaruccio"
-    },
-    {
-      "name": "Karel Piwko",
-      "url": "https://github.com/kpiwko"
-    },
-    {
-      "name": "Aaron Sherrill",
-      "url": "https://github.com/motionharvest"
-    }
+    "Graeme Foster <graemef@gmail.com>",
+    "Mike Beasley <mbeasley@emcien.com>",
+    "Dario Kondratiuk <dariokondratiuk@gmail.com>",
+    "Sean Madden <sdm350@gmail.com>",
+    "Siôn Le Roux <sinisterstuf@gmail.com>",
+    "Mike Garuccio (https://github.com/mgaruccio)",
+    "Karel Piwko (https://github.com/kpiwko)",
+    "Aaron Sherrill (https://github.com/motionharvest)"
   ],
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha"
@@ -44,7 +20,7 @@
   "homepage": "https://github.com/norberteder/trello",
   "repository": {
     "type": "git",
-    "url": "https://github.com/norberteder/trello.git"
+    "url": "git+https://github.com/norberteder/trello.git"
   },
   "keywords": [
     "trello"
@@ -54,6 +30,7 @@
     "es6-promise": "^4.2.8",
     "needle": "3.0.0",
     "object-assign": "~4.1.0",
+    "openssl": "^2.0.0",
     "trello": "^0.3.0"
   },
   "devDependencies": {
@@ -66,5 +43,8 @@
   "license": "MIT",
   "engines": {
     "node": ">= 0.10.x"
+  },
+  "bugs": {
+    "url": "https://github.com/norberteder/trello/issues"
   }
 }
