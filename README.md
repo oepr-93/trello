@@ -1,58 +1,70 @@
 [![Build Status](https://travis-ci.org/norberteder/trello.svg?branch=master)](https://travis-ci.org/norberteder/trello)
 
-# trello
-## A simple asynchronous client for [Trello](http://www.trello.com)
+# Trello
 
-This is a wrapper for some of the Trello HTTP API. Please feel free to add any other pieces you need! :)
+## Objetivos del proyecto:
+    - Explorar proyectos que no son de tu autoría.
+    - Explorar un API Rest de un servicio como trello.
+    - Usar Postman para probar un api rest.
+    - Cómo funciona el api rest de trello.
+    
+## Desarrollo del proyecto
 
-## Installation
-    npm install trello
+Crea un nuevo proyecto de js.
+Agregar la siguiente dependencia:
 
-## Usage
-Log in to Trello and visit [trello.com/app-key](https://trello.com/app-key) to get a `token` and `app key`. These need to be supplied when you create the Trello object (see below).
+> npm install dotenv --save
 
-## Example
+Crea un archivo `.env` agregando el API KEY y TOKEN de trello:
+
+`.env`
 ```javascript
-  var Trello = require("trello");
-  var trello = new Trello("MY APPLICATION KEY", "MY USER TOKEN");
-
-  trello.addCard('Clean car', 'Wax on, wax off', myListId,
-      function (error, trelloCard) {
-          if (error) {
-              console.log('Could not add card:', error);
-          }
-          else {
-              console.log('Added card:', trelloCard);
-          }
-      });
+KEY="TrelloKeyHere"
+TOKEN="Trellotokenhere"
 ```
 
-## Callback or promise
-API calls can either execute a callback or return a promise. To return a promise just omit the callback parameter.
+El archivo `.gitignore` debe incluir el archivo `.env` ya que la información sensible no debe versionarse.
 
+Realizar un fork al proyecto [](https://github.com/norberteder/trello)
+
+Agregar la dependencia de Trello: `npm install trello --save`.
+
+Agregar el código en app.js:
+
+`app.js`
 ```javascript
-  //Callback
-  trello.getCardsOnList(listId, callback);
+require('dotenv').config()
 
-  //Promise
-  var cardsPromise = trello.getCardsOnList(listId);
-  cardsPromise.then((cards) => {
-    //do stuff
-  })
+if(!process.env.TOKEN && !process.env.KEY){
+  throw new Error('No hay configuración con Api Key y con Token')
+}
+
+let Trello = require("trello");
+let trello = new Trello(process.env.KEY, process.env.TOKEN);
+
+let cardTitle = `Card Nueva ${new Date()}`
+
+trello.addCard(cardTitle, "LaunchX Card Description", "6264e42be72d295e64f5c083",
+	function (error, trelloCard) {
+		if (error) {
+			console.log('Could not add card:', error);
+		}
+		else {
+			console.log('Added card:', trelloCard);
+		}
+	});
 ```
+Revisar lo siguiente:
+- Qué dependencias estan usando.
+- Cuál es el archivo principal
+- Están usando Common JS o ESM
+- Qué framework de pruebas estás usando
+- Cómo están diseñadas las pruebas
+- Revisa los commits del repo 
 
-## Requests to API endpoints, not supported by this lib yet
+Este repsositorio permite lanzar requests a trello con un script de manera local. 
 
-```javascript
-    // Get all registered tokens and webhooks
-    // Url will look like: https://api.trello.com/1/members/me/tokens?webhooks=true&key=YOURKEY&token=YOURTOKEN
-    trello.makeRequest('get', '/1/members/me/tokens', { webhooks: true })
-      .then((res) => {
-          console.log(res)
-      });
-```
-
-## Available functions
+## De acuerdo a la documentación, las funciones disponibles son:
 
 ### Add
 
@@ -122,95 +134,3 @@ API calls can either execute a callback or return a promise. To return a promise
 * updateLabelName 
 
 Everything that is not available as a function can be requested by calling `makeRequest`.
-
-## History
-
-### 0.12.0
-
-* Replaced `restler` with `needle`
-
-### 0.11.0
-
-* Update optional fields
-* Add optional field queries
-* Add function `addCustomField`
-* Add function `addOptionToCustomField`
-* Add function `setCustomFieldOnCard`
-* Add function `updateCardPos`
-* Add function `delMemberFromCard`
-
-### 0.10.0
-
-* Add `copyBoard` functionality
-* Add `getCustomFieldsOnBoard`
-* Add `getActionsOnBoard`
-
-### 0.9.1
-
-* Added trailing slash to /boards/ call
-
-### 0.9.0
-
-* New function `getCardsOnBoardWithExtraParams`
-* New function `getCardsOnListWithExtraParams`
-* New function `addDueDateToCard`
-
-### 0.8.0
-
-* Rename list fixed
-* Handle API rate limit by retries 
-* New function `addCardWithExtraParams` 
-
-### 0.7.0
-
-* Public visibility for `makeRequest`
-
-### 0.6.0
-
-* added `getMember`
-* added `getCardStickers`
-* added `addStickerToCard`
-* added `getOrgBoards`
-* added `getMemberCards`
-* added `updateBoardPref`
-* added `addMemberToBoard`
-
-### 0.5.1
-
-* added `renameList`
-* added `addChecklistToCard`
-* added `getChecklistsOnCard`
-* added `addExistingChecklistToCard`
-* added `updateChecklist`
-* added `getOrgMembers`
-* API methods now return the promise
-
-### 0.5.0
-
-* Support of promises
-* Basic support of Labeling:
-  * getLabelsForBoard
-  * addLabelOnBoard
-  * deleteLabel
-  * addLabelToCard
-  * deleteLabelFromCard
-
-### 0.4.1
-
-* Updated dev dependencies
-
-### 0.4.0
-
-* One-time listener
-* `addAttachmentToCard` added
-* Updated `restler` dependency
-* Node.js support >= 0.10.x / removed 0.6 and 0.8
-
-### 0.3.0
-
-* Project `trello_ex` merged again with original project `trello`
-* Using 'restler' again
-
-### 0.2.0
-
-* `getBoards` added
